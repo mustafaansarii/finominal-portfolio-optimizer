@@ -13,7 +13,7 @@ This repository contains a FastAPI-based Portfolio Optimization engine replicati
 1. **Clone the repository**:
    ```bash
    git clone https://github.com/mustafaansarii/finominal-portfolio-optimizer
-   cd finominal-backend-assignment
+   cd finominal-portfolio-optimizer
    ```
 
 2. **Set up the virtual environment (using `uv`)**:
