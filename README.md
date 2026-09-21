@@ -77,6 +77,14 @@ curl -X 'POST' \
 ## Test Cases & Validation
 
 ### Case 1: Equal Weights
+**API Request:**
+```bash
+curl -X 'POST' \
+  'http://127.0.0.1:8000/optimize' \
+  -H 'Content-Type: application/json' \
+  -d '{"tickers": ["IEFA", "SPY"], "current_weights": {"IEFA": 0.25, "SPY": 0.75}, "strategy": "equal_weights"}'
+```
+
 **API Response:**
 ```json
 {
@@ -118,6 +126,14 @@ As expected, the live UI matches the API output perfectly (IEFA 50%, SPY 50%):
 ---
 
 ### Case 2: Risk Parity
+**API Request:**
+```bash
+curl -X 'POST' \
+  'http://127.0.0.1:8000/optimize' \
+  -H 'Content-Type: application/json' \
+  -d '{"tickers": ["VEA", "AGG"], "current_weights": {"VEA": 0.25, "AGG": 0.75}, "strategy": "risk_parity"}'
+```
+
 **API Response:**
 ```json
 {
@@ -159,6 +175,14 @@ As expected, the live UI matches the API output perfectly (VEA ~20%, AGG ~80%):
 ---
 
 ### Case 3: Minimize Volatility
+**API Request:**
+```bash
+curl -X 'POST' \
+  'http://127.0.0.1:8000/optimize' \
+  -H 'Content-Type: application/json' \
+  -d '{"tickers": ["SPY", "AGG", "GLD"], "current_weights": {"SPY": 0.6, "AGG": 0.3, "GLD": 0.1}, "strategy": "minimize_volatility"}'
+```
+
 **API Response:**
 ```json
 {
@@ -207,6 +231,14 @@ As expected, the live UI matches the API output perfectly (SPY ~6.9%, AGG ~91.2%
 ---
 
 ### Case 4: Maximize Sharpe Ratio (No constraints)
+**API Request:**
+```bash
+curl -X 'POST' \
+  'http://127.0.0.1:8000/optimize' \
+  -H 'Content-Type: application/json' \
+  -d '{"tickers": ["IEFA", "GLD", "AGG", "VEA", "SPY"], "current_weights": {"IEFA": 0.2, "GLD": 0.2, "AGG": 0.2, "VEA": 0.2, "SPY": 0.2}, "strategy": "maximize_sharpe_ratio"}'
+```
+
 **API Response:**
 ```json
 {
@@ -269,6 +301,14 @@ As expected, the live UI matches the API output perfectly (IEFA 0%, GLD ~20%, AG
 ---
 
 ### Case 5: Maximize Sharpe Ratio (With Multi-Constraints)
+**API Request:**
+```bash
+curl -X 'POST' \
+  'http://127.0.0.1:8000/optimize' \
+  -H 'Content-Type: application/json' \
+  -d '{"tickers": ["IEFA", "GLD", "AGG", "VEA", "SPY"], "current_weights": {"IEFA": 0.2, "GLD": 0.2, "AGG": 0.2, "VEA": 0.2, "SPY": 0.2}, "strategy": "maximize_sharpe_ratio", "constraints": {"min_weight": 0.05, "max_weight": 0.4, "min_dividend_yield": 0.025}}'
+```
+
 **API Response:**
 ```json
 {
@@ -331,6 +371,14 @@ As expected, the live UI matches the API output perfectly (Strictly enforced 40%
 ---
 
 ### Case 6: Maximize Momentum Exposure (Bonus)
+**API Request:**
+```bash
+curl -X 'POST' \
+  'http://127.0.0.1:8000/optimize' \
+  -H 'Content-Type: application/json' \
+  -d '{"tickers": ["IEFA", "GLD", "AGG", "VEA", "SPY"], "current_weights": {"IEFA": 0.2, "GLD": 0.2, "AGG": 0.2, "VEA": 0.2, "SPY": 0.2}, "strategy": "optimize_factor_exposure", "factor_to_optimize": "Momentum Factor", "maximize_factor": true}'
+```
+
 **API Response:**
 ```json
 {
