@@ -21,7 +21,6 @@ class OptimizationRequest(BaseModel):
     strategy: StrategyEnum
     constraints: Optional[Constraints] = None
     
-    # For strategy 6 (bonus)
     factor_to_optimize: Optional[str] = Field("Momentum Factor", description="E.g., Momentum Factor, Value Factor, Size Factor")
     maximize_factor: Optional[bool] = Field(True, description="True to maximize, False to minimize exposure")
     
